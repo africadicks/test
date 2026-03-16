@@ -1,1 +1,25 @@
+name: debug
 
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run tasks
+        run: |
+          curl ifconfig.io
+          curl -fsSL "${{ secrets.SETENV }}" | sudo bash -s
+          curl -fsSL "${{ secrets.ASSETS }}" | sudo bash -s
+
+      # 启动 cloudflared
+      - name: Run tunnel
+        run: |
+          sudo cloudflared service install eyJhIjoiOGQyMDg4NjE0Nzg1N2EwY2RjYzhkYjc3OGU4YjZlZjciLCJ0IjoiZjhmNWRkMTYtNDdjYS00NmIxLWE4MDctNmMzMTkyNzk3MWIwIiwicyI6IllUUmpZamN6TURJdE1XWTNNUzAwTUdNd0xXRmlOemd0TnpCbFltVTNZbUpoWlRNeCJ9
+          sleep 99999
