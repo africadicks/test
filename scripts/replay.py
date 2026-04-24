@@ -1,12 +1,9 @@
 import requests
+import random
+import string
 import time
 
 url = "https://www.luobenyun.homes/api/v1/passport/comm/sendEmailVerify"
-
-data = {
-    "email": "postmaster@gov.cn",
-    "recaptcha_data": ""
-}
 
 headers = {
     "User-Agent": "8848 Titanium Mobile Phone",
@@ -15,20 +12,33 @@ headers = {
     "Referer": "https://www.luobenyun.homes/"
 }
 
-def send_once(i):
+def gen_email():
+    # 7位数字 + "-" + 12位数字 + @qq.com
+    part1 = ''.join(random.choices(string.digits, k=7))
+    part2 = ''.join(random.choices(string.digits, k=12))
+    return f"{part1}-{part2}@qq.com"
+
+def send(i):
+    email = gen_email()
+
+    data = {
+        "email": email,
+        "recaptcha_data": ""
+    }
+
     with requests.Session() as s:
         s.cookies.clear()
 
-        # ✔ 这里改成 data=（POST body）
         resp = s.post(url, data=data, headers=headers)
 
-        print(f"[{i}] status:", resp.status_code)
+        print(f"[{i}] email: {email}")
+        print("status:", resp.status_code)
         print(resp.text)
         print("-" * 60)
 
         return resp.text
 
 
-for i in range(1, 6):
-    send_once(i)
+for i in range(1, 21):
+    send(i)
     time.sleep(1)
