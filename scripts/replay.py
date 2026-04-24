@@ -1,6 +1,5 @@
 import requests
 import random
-import string
 import time
 
 url = "https://www.luobenyun.homes/api/v1/passport/comm/sendEmailVerify"
@@ -12,16 +11,25 @@ headers = {
     "Referer": "https://www.luobenyun.homes/"
 }
 
+# ✔ 原函数：7~12位范围随机数
 def gen_email():
-    # 7位最小值
-    min_val = 10**6  # 1000000
-    # 12位最大值
-    max_val = 10**12 - 1  # 999999999999
+    min_val = 10**6
+    max_val = 10**12 - 1
     num = random.randint(min_val, max_val)
     return f"{num}@qq.com"
 
+# ✔ 新增函数：固定10位随机数字
+def gen_email_10():
+    min_val = 10**9          # 1000000000（10位最小）
+    max_val = 10**10 - 1     # 9999999999（10位最大）
+    num = random.randint(min_val, max_val)
+    return f"{num}@qq.com"
+
+# ✔ 当前使用的生成函数（切换这里）
+USE_FUNC = gen_email_10   # ← 改这里切换 gen_email / gen_email_10
+
 def send(i):
-    email = gen_email()
+    email = USE_FUNC()
 
     data = {
         "email": email,
