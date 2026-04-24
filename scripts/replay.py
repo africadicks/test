@@ -13,10 +13,12 @@ headers = {
 }
 
 def gen_email():
-    # 7位数字 + "-" + 12位数字 + @qq.com
-    part1 = ''.join(random.choices(string.digits, k=7))
-    part2 = ''.join(random.choices(string.digits, k=12))
-    return f"{part1}-{part2}@qq.com"
+    # 7位最小值
+    min_val = 10**6  # 1000000
+    # 12位最大值
+    max_val = 10**12 - 1  # 999999999999
+    num = random.randint(min_val, max_val)
+    return f"{num}@qq.com"
 
 def send(i):
     email = gen_email()
