@@ -4,122 +4,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  script-test-1:
+  test:
     runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
 
-  script-test-2:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
+    strategy:
+      matrix:
+        i: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-  script-test-3:
-    runs-on: ubuntu-latest
     steps:
-      - name: check
-        run: python /scripts/replay.py
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-  script-test-4:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-  script-test-5:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
+      - name: Install requests
+        run: pip install requests
 
-  script-test-6:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-7:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-8:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-9:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-10:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-11:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-12:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-13:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-14:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-15:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-16:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-17:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-18:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-19:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
-
-  script-test-20:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        run: python /scripts/replay.py
+      - name: Run script
+        run: python scripts/replay.py
