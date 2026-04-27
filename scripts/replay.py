@@ -49,6 +49,6 @@ def send(i):
         return resp.text
 
 
-for i in range(1, 21):
+for i in range(1, 99999999999):
     send(i)
-    time.sleep(1)
+    #time.sleep(1)
